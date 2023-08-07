@@ -1,10 +1,3 @@
-/**
-* Template Name: Arsha
-* Updated: Jul 27 2023 with Bootstrap v5.3.1
-* Template URL: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
 (function() {
   "use strict";
 
@@ -78,18 +71,18 @@
   /**
    * Toggle .header-scrolled class to #header when page is scrolled
    */
-  let selectHeader = select('#header')
-  if (selectHeader) {
-    const headerScrolled = () => {
-      if (window.scrollY > 100) {
-        selectHeader.classList.add('header-scrolled')
-      } else {
-        selectHeader.classList.remove('header-scrolled')
-      }
-    }
-    window.addEventListener('load', headerScrolled)
-    onscroll(document, headerScrolled)
-  }
+  // let selectHeader = select('#header')
+  // if (selectHeader) {
+  //   const headerScrolled = () => {
+  //     if (window.scrollY > 100) {
+  //       selectHeader.classList.add('header-scrolled')
+  //     } else {
+  //       selectHeader.classList.remove('header-scrolled')
+  //     }
+  //   }
+  //   window.addEventListener('load', headerScrolled)
+  //   onscroll(document, headerScrolled)
+  // }
 
   /**
    * Back to top button
@@ -256,3 +249,66 @@
   });
 
 })()
+
+
+;( function( root, factory ) {
+
+  if( typeof exports === "object" ) {
+      module.exports = factory( root.jQuery )
+  } else {
+      root.owlcarousel2_filter = factory( root.jQuery );
+  }
+
+} ) ( window, function( $, args ) {
+
+  'use strict';
+
+  var OwlCarousel2_Filter = function( filter, $args ) {
+
+      var owl = this;
+      var owl_object = owl.data( 'owl.carousel' );
+      var owl_settings = owl_object.options;
+      
+      // Destroy OwlCarousel 
+      owl.trigger( 'destroy.owl.carousel' );
+      
+      // Clone
+      if( ! owl.oc2_filter_clone )
+          owl.oc2_filter_clone = owl.clone()
+      
+      // Filter elements and clone
+      var clone_filter_items = owl.oc2_filter_clone.children( filter ).clone();
+
+      // Put filter items and re-call OwlCarousel
+      owl.empty().append( clone_filter_items ).owlCarousel( owl_settings )
+  }
+
+  $.fn.owlcarousel2_filter = OwlCarousel2_Filter;
+
+} )
+
+var owl = $('.owl-carousel').owlCarousel({
+  loop:true,
+  margin:10,
+  lazyLoad: true,
+  responsive:{
+      0:{
+          items:1
+      },
+      600:{
+          items:3
+      },
+      1000:{
+          items:5
+      }
+  }
+})
+
+$( '.owl-filter-bar' ).on( 'click', '.item', function() {
+
+  var $item = $(this);
+  var filter = $item.data( 'owl-filter' )
+
+  owl.owlcarousel2_filter( filter );
+
+} )
