@@ -1899,3 +1899,12 @@ section {
   background-color: rgb(230, 231, 232);
   border-radius: 20%;
 }
+
+.accordion-list ul li img {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  float: center;
+  width:  900px;
+  height: 600px;
+  object-fit: cover;
+}
